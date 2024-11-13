@@ -164,6 +164,9 @@ const handleNoteSave = () => {
   const newNote = {
     title: noteTitle.value,
     text: noteText.value,
+    answer: noteAnswer.value,
+    patientID: patientID.value,
+    citationIds: citationIds.value,
   };
   saveNote(newNote).then(() => {
     getAndRenderNotes();
@@ -273,6 +276,9 @@ if (window.location.pathname === '/notes') {
   viewPatientsBtn.addEventListener('click', handleSelectPatients);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
+  noteAnswer.addEventListener('keyup', handleRenderSaveBtn);
+  patientID.addEventListener('keyup', handleRenderSaveBtn);
+  citationIds.addEventListener('keyup', handleRenderSaveBtn);
 }
 
 getAndRenderNotes();
