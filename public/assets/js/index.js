@@ -57,6 +57,10 @@ const handleSelectPatients = () => {
             // only if the message is coming from the patient picker
             if (e.origin === origin) {
 
+                // Add the patient ID to the note if it is not already there
+                if (noteText.value.indexOf("Patient ID: ") === -1 && e.data.data)
+                  noteText.value = "Patient ID: " + e.data.data + "\n" + noteText.value;
+
                 // OPTIONAL: Send your custom configuration options if needed
                 // when the patient browser says it is ready
                 if (e.data.type === 'ready') {
