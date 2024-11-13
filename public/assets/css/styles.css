@@ -35,6 +35,7 @@ h4 {
 }
 
 .note-textarea,
+.note-answer,
 .note-title {
     color: rgb(72, 8, 175);
     width: 100%;
@@ -56,16 +57,17 @@ h4 {
     border: none;
 }
 .note-textarea::placeholder,
+.note-answer::placeholder,
 .note-title::placeholder {
     color: rgba(108, 62, 184, 0.699);
 }
 
 .note-title:read-only,
-.note-textarea:read-only {
+.note-textarea:read-only .note-answer:read-only{
     color: rgb(72, 8, 175);
 }
 
-.note-textarea {
+.note-textarea .note-answer{
     resize: none;
     height: calc(100% - 63px);
     padding-top: 15px;
