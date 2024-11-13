@@ -10,7 +10,82 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
+  viewPatientsBtn = document.querySelector('.view-patients');
 }
+
+const handleSelectPatients = () => {
+      return new Promise(function(resolve, reject) {
+
+        let selection = noteTitle.value;
+
+        let _selection = `/patient/${selection}`;
+
+        // The origin of the patient browser app
+        let origin = "https://patient-browser.smarthealthit.org";
+
+        // What config file to load
+        let config = "default";
+
+        // Popup height
+        let height = 700;
+
+        // Popup width
+        let width  = 1000;
+
+        // Open the popup
+        let popup  = window.open(
+            origin + (
+                selection ?
+                    `/index.html?config=${config}#${_selection}` :
+                    ""
+            ),
+            "picker",
+            [
+                "height=" + height,
+                "width=" + width,
+                "menubar=0",
+                "resizable=1",
+                "status=0",
+                "top=" + (screen.height - height) / 2,
+                "left=" + (screen.width - width) / 2
+            ].join(",")
+        );
+
+        // The function that handles incoming messages
+        const onMessage = function onMessage(e) {
+
+            // only if the message is coming from the patient picker
+            if (e.origin === origin) {
+
+                // OPTIONAL: Send your custom configuration options if needed
+                // when the patient browser says it is ready
+                if (e.data.type === 'ready') {
+                    popup.postMessage({
+                        type: 'config',
+                        data: {
+                            submitStrategy: "manual",
+                            // ...
+                        }
+                    }, '*');
+                }
+
+                // When the picker requests to be closed:
+                // 1. Stop listening for messages
+                // 2. Close the popup window
+                // 3. Resolve the promise with the new selection (if any)
+                else if (e.data.type === 'result' || e.data.type === 'close') {
+                    window.removeEventListener('message', onMessage);
+                    popup.close();
+                    resolve(e.data.data);
+                }
+            }
+        };
+
+        // Now just wait for the user to interact with the patient picker
+        window.addEventListener('message', onMessage);
+    });
+
+};
 
 // Show an element
 const show = (elem) => {
@@ -176,6 +251,7 @@ const getAndRenderNotes = () => getNotes().then(renderNoteList);
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
+  viewPatientsBtn.addEventListener('click', handleSelectPatients);
   noteTitle.addEventListener('keyup', handleRenderSaveBtn);
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
