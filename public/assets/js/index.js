@@ -9,6 +9,7 @@ if (window.location.pathname === '/notes') {
   patientID = document.querySelector('.patient-id');
   citationIds = document.querySelector('.citation-ids');
   noteText = document.querySelector('.note-textarea');
+  noteAnswer = document.querySelector('.note-answer');
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
@@ -137,13 +138,25 @@ const renderActiveNote = () => {
   if (activeNote.id) {
     noteTitle.setAttribute('readonly', true);
     noteText.setAttribute('readonly', true);
+    noteAnswer.setAttribute('readonly', true);
+    patientID.setAttribute('readonly', true);
+    citationIds.setAttribute('readonly', true);
     noteTitle.value = activeNote.title;
     noteText.value = activeNote.text;
+    noteAnswer.value = activeNote.answer;
+    patientID.value = activeNote.patientID;
+    citationIds.value = activeNote.citationIds;
   } else {
     noteTitle.removeAttribute('readonly');
     noteText.removeAttribute('readonly');
+    noteAnswer.removeAttribute('readonly');
+    patientID.removeAttribute('readonly');
+    citationIds.removeAttribute('readonly');
     noteTitle.value = '';
     noteText.value = '';
+    noteAnswer.value = '';
+    patientID.value = '';
+    citationIds.value = '';
   }
 };
 
