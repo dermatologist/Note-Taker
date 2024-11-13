@@ -42,6 +42,19 @@ h4 {
     border: none;
 }
 
+.patient-id {
+    color: rgb(72, 8, 175);
+    width: 70%;
+    outline: none;
+    border: none;
+}
+
+.citation-ids {
+    color: rgb(72, 8, 175);
+    width: 70%;
+    outline: none;
+    border: none;
+}
 .note-textarea::placeholder,
 .note-title::placeholder {
     color: rgba(108, 62, 184, 0.699);

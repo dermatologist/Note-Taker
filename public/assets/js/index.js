@@ -6,6 +6,8 @@ let noteList;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
+  patientID = document.querySelector('.patient-id');
+  citationIds = document.querySelector('.citation-ids');
   noteText = document.querySelector('.note-textarea');
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
@@ -58,8 +60,8 @@ const handleSelectPatients = () => {
             if (e.origin === origin) {
 
                 // Add the patient ID to the note if it is not already there
-                if (noteText.value.indexOf("Patient ID: ") === -1 && e.data.data)
-                  noteText.value = "Patient ID: " + e.data.data + "\n" + noteText.value;
+                if(e.data.data)
+                  patientID.value = e.data.data;
 
                 // OPTIONAL: Send your custom configuration options if needed
                 // when the patient browser says it is ready
